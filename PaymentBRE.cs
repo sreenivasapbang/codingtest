@@ -28,48 +28,55 @@ namespace PaymentsBREV1
 
         public bool paymentAction(string actionType)
         {
-
-            switch (actionType)
+            try
             {
-                case "PyProduct":
-                    {
-                        Console.Write("PackingSlip Generated");
-                        return true;
-                    }
-                case "Book":
-                    {
-                        Console.Write("Duplicate PackingSlip for Royalty Dept Generated");
-                        return true;
-                    }
-                case "Membership":
-                    {
-                        Console.Write("Membership Activated");
-                        return true;
-                    }
-                case "UpgradeMembership":
-                    {
-                        Console.Write("Membership Upgraded");
-                        return true;
-                    }
-                case "MemupOrUpgr":
-                    {
-                        Console.Write("Membership Activate and then Upgrade");
-                        return true;
-                    }
+                switch (actionType)
+                {
+                    case "PyProduct":
+                        {
+                            Console.Write("PackingSlip Generated");
+                            return true;
+                        }
+                    case "Book":
+                        {
+                            Console.Write("Duplicate PackingSlip for Royalty Dept Generated");
+                            return true;
+                        }
+                    case "Membership":
+                        {
+                            Console.Write("Membership Activated");
+                            return true;
+                        }
+                    case "UpgradeMembership":
+                        {
+                            Console.Write("Membership Upgraded");
+                            return true;
+                        }
+                    case "MemupOrUpgr":
+                        {
+                            Console.Write("Membership Activate and then Upgrade");
+                            return true;
+                        }
 
-                case "Video":
-                    {
-                        Console.Write("FirstAid video added to the PackingSlip");
-                        return true;
-                    }
-                case "PyProdOrBook":
-                    {
-                        Console.Write("Commission Generated for agent");
-                        return true;
-                    }
-                default:
-                    Console.Write("May be Future action type");
-                    return false;
+                    case "Video":
+                        {
+                            Console.Write("FirstAid video added to the PackingSlip");
+                            return true;
+                        }
+                    case "PyProdOrBook":
+                        {
+                            Console.Write("Commission Generated for agent");
+                            return true;
+                        }
+                    default:
+                        Console.Write("May be Future action type");
+                        return false;
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.Write(ex.Message);
+                return false;
             }
         }
     }
