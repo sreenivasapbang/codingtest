@@ -1,5 +1,5 @@
 # codingtest
-This code base is to test Payments BRE module
+This code base is to test Payments BRE module which is problem 2
 
 Please use the PaymentsBREUnitTest.cs file to run the Unit test cases with Visual Studio
 Please use the Program.cs file to run the program to see the demo on console with Visual Studio
