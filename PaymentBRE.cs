@@ -16,6 +16,8 @@ namespace PaymentsBREV1
 
     }
     
+    
+    
     //Generic class to test all the payment action types
       public class GenericPaymentBRE : IPayments
       {
@@ -71,5 +73,45 @@ namespace PaymentsBREV1
             }
         }
     }
+    
+    //New Business Rule 
+    public class NewPaymentBRE : IPayments
+    {
+        //Default Constructor
+        public NewPaymentBRE()
+        {
+        }
+        public bool paymentAction(string actionType)
+        {
+            if (actionType == "Others")
+            {
+                Console.Write("New Business Rule is executed");
+                return true;
+            }
+            Console.Write("New Business Rule Payment Action is wrong");
+            return false;
+        }
+    }
+    //Yet Another New Business Rule 
+    public class NewV2PaymentBRE : IPayments
+    {
+        //Default Constructor
+        public NewV2PaymentBRE()
+        {
 
+        }
+        //Implementing paymentAction method as declared in the Interface
+        public bool paymentAction(string actionType)
+        {
+
+            if (actionType == "OthersV2")
+            {
+                Console.Write("V2 New rule IS MODIFIED");
+                return true;
+            }
+            Console.Write("New Business Rule V2 Payment Action is wrong");
+            return false;
+        }
+    }
+    
 }
