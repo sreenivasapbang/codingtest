@@ -8,7 +8,7 @@ namespace PaymentsBREV1
     //AllPayments class for processing 
     class Program
     {
-        static void Main(string[] args)
+    static void Main(string[] args)
         {
             Console.WriteLine("Welcome to Payment BRE");
             Console.WriteLine("Choose Payment BRE Action Type; Type Initial");
@@ -22,53 +22,99 @@ namespace PaymentsBREV1
             Console.WriteLine("X. V2 Others");
             Console.WriteLine("Z. Others");
 
+            AllPayments payments = new AllPayments();
+            //ArrayList arrayList = payments.CreatePaymentActions(new PaymentsProduct());
+
+            GeneriPaymentBRE generiPaymentBRE = new GeneriPaymentBRE();
+            generiPaymentBRE.PaymentActionType = "PyProduct";
+            generiPaymentBRE.BusinessRule = "Product Packing slip is generated...";
+
+            System.Collections.Generic.List<IPayments> paymentsList = payments.CreatePaymentActions(generiPaymentBRE);
+
+            generiPaymentBRE = new GeneriPaymentBRE();
+            generiPaymentBRE.PaymentActionType = "Book";
+            generiPaymentBRE.BusinessRule = "Book Rule -  Created duplicate packing slip for Royalty Department ...";
+            paymentsList = payments.CreatePaymentActions(generiPaymentBRE);
+
+            generiPaymentBRE = new GeneriPaymentBRE();
+            generiPaymentBRE.PaymentActionType = "Membership";
+            generiPaymentBRE.BusinessRule = "Membership Rule -  Membership Activated ...";
+            paymentsList = payments.CreatePaymentActions(generiPaymentBRE);
+
+            generiPaymentBRE = new GeneriPaymentBRE();
+            generiPaymentBRE.PaymentActionType = "UpgradeMembership";
+            generiPaymentBRE.BusinessRule = "Upgrade Membership Rule -  Membership Upgraded...";
+            paymentsList = payments.CreatePaymentActions(generiPaymentBRE);
+
+            generiPaymentBRE = new GeneriPaymentBRE();
+            generiPaymentBRE.PaymentActionType = "MemupOrUpgr";
+            generiPaymentBRE.BusinessRule = "Membership/Upgrade Rule -  mailed to Owner and Membership Upgraded...";
+            paymentsList = payments.CreatePaymentActions(generiPaymentBRE);
+
+            generiPaymentBRE = new GeneriPaymentBRE();
+            generiPaymentBRE.PaymentActionType = "Video";
+            generiPaymentBRE.BusinessRule = "Video Rule -  Added Fee to First Aid video...";
+            paymentsList = payments.CreatePaymentActions(generiPaymentBRE);
+
+            generiPaymentBRE = new GeneriPaymentBRE();
+            generiPaymentBRE.PaymentActionType = "PyProdOrBook";
+            generiPaymentBRE.BusinessRule = "PyProdOrBook Rule -  Commission payment generated to Agent...";
+            paymentsList = payments.CreatePaymentActions(generiPaymentBRE);
+
+            //Retrieve the Business Rule for Action Type
             var varActionType = Console.ReadKey().KeyChar;
-            AllPayments paymentBRE;
+            var strActionType="";
+            switch (varActionType)
+            {
+                case 'A':
+                    {
+                        strActionType = "PyProduct";
+                        break;
+                    }
+                case 'B':
+                    {
+                        strActionType = "Book";
+                        break;
+                    }
+                case 'C':
+                    {
+                        strActionType = "Membership";
+                        break;
+                    }
+                case 'D':
+                    {
+                        strActionType = "UpgradeMembership";
+                        break;
+                    }
+                case 'E':
+                    {
+                        strActionType = "MemupOrUpgr";
+                        break;
+                    }
+                   
 
-            paymentBRE = new AllPayments(new GenericPaymentBRE());
-            if (varActionType == 'A')
-            {                
-                paymentBRE.RunPaymentBRE("PyProduct");
-            }
-            if (varActionType == 'B')
-            {
-                paymentBRE.RunPaymentBRE("Book");
-            }
-            if (varActionType == 'C')
-            {
-                paymentBRE.RunPaymentBRE("Membership");
-            }
-            if (varActionType == 'D')
-            {
-                paymentBRE.RunPaymentBRE("UpgradeMembership");
-            }
-            if (varActionType == 'E')
-            {
-                paymentBRE.RunPaymentBRE("MemupOrUpgr");
+                case 'F':
+                    {
+                        strActionType = "Video";
+                        break;
+                    }
+
+                case 'G':
+                    {
+                        strActionType = "PyProdOrBook";
+                        break;
+                    }
+                default:
+                    {
+                        strActionType = "";
+                        break;
+                    }
             }
 
-            if (varActionType == 'F')
-            {
-                paymentBRE.RunPaymentBRE("Video");
-            }
-            if (varActionType == 'G')
-            {
-                paymentBRE.RunPaymentBRE("PyProdOrBook");
-            }
-            if (varActionType == 'Z')
-            {
-                paymentBRE = new AllPayments(new NewPaymentBRE());
-                paymentBRE.RunPaymentBRE("Others");
-            }
-            if (varActionType == 'X')
-            {
-                paymentBRE = new AllPayments(new NewV2PaymentBRE());
-                paymentBRE.RunPaymentBRE("Others");
-            }
-
-            paymentBRE = null;
+            payments.GetPaymentsByAction(strActionType);
             Console.ReadKey();
         }
+    }        
     }
 
 }
