@@ -28,5 +28,35 @@ namespace PaymentsBREV1.Tests
             Assert.AreEqual(true, paymentBRE.RunPaymentBRE("OthersV2"));
 
     }
+    
+    
+        [TestMethod()]
+        public void RunPaymentBRENewRuleTest()
+        {
+
+            //To demonstrate the pass case with new BRE classes
+            //AllPayments paymentBRE = new AllPayments(new NewPaymentBRE());
+            //Assert.AreEqual(true, paymentBRE.RunPaymentBRE("Others"));
+
+            //Uncomment To demonstrate fail case
+            AllPayments paymentBRE = new AllPayments(new NewPaymentBRE());
+            Assert.AreEqual(true, paymentBRE.RunPaymentBRE("OthersTest"));
+        }
+
+
+        [TestMethod()]
+        public void RunPaymentBRENewV2RuleTest()
+        {
+
+            //To demonstrate the pass case with new BRE classes
+            
+            AllPayments paymentBRE = new AllPayments(new NewV2PaymentBRE());
+            Assert.AreEqual(true, paymentBRE.RunPaymentBRE("OthersV2"));
+
+            //Uncomment To demonstrate fail case
+            //AllPayments paymentBRE = new AllPayments(new NewV2PaymentBRE());
+            //Assert.AreEqual(true, paymentBRE.RunPaymentBRE("OthersV2Test"));
+
+        }
   }
 }
