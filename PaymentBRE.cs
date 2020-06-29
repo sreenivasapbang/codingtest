@@ -26,6 +26,20 @@ namespace PaymentsBREV1
     }
 
     
+    
+    ////Client class which calls the payments implemenation class through interface for all the payments action type
+    /// <summary>
+    /// This class is also used by the unit test class
+    /// </summary>
+    public class AllPayments : IPaymentsFactory
+    {
+    
+     public AllPayments()
+        {
+                
+        }
+        
+        //Initialzie all the default Payments Business Rules
         public void InitializePayments()
         {
 
@@ -67,12 +81,6 @@ namespace PaymentsBREV1
 
         }
 
-    ////Client class which calls the payments implemenation class through interface for all the payments action type
-    /// <summary>
-    /// This class is also used by the unit test class
-    /// </summary>
-    public class AllPayments : IPaymentsFactory
-    {
         private List<IPayments> _allPaymentsArray;
     
         private List<IPayments> _payments;
