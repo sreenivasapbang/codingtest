@@ -22,8 +22,50 @@ namespace PaymentsBREV1
     {
         //ArrayList CreatePaymentActions(AbsPayments payments);
         List<IPayments> CreatePaymentActions(IPayments payments);
+        bool GetPaymentsByAction(string ActionType);
     }
 
+    
+        public void InitializePayments()
+        {
+
+            GeneriPaymentBRE generiPaymentBRE = new GeneriPaymentBRE();
+            generiPaymentBRE.PaymentActionType = "PyProduct";
+            generiPaymentBRE.BusinessRule = "Product Packing slip is generated...";
+
+            System.Collections.Generic.List<IPayments> paymentsList = CreatePaymentActions(generiPaymentBRE);
+
+            generiPaymentBRE = new GeneriPaymentBRE();
+            generiPaymentBRE.PaymentActionType = "Book";
+            generiPaymentBRE.BusinessRule = "Book Rule -  Created duplicate packing slip for Royalty Department ...";
+            paymentsList = CreatePaymentActions(generiPaymentBRE);
+
+            generiPaymentBRE = new GeneriPaymentBRE();
+            generiPaymentBRE.PaymentActionType = "Membership";
+            generiPaymentBRE.BusinessRule = "Membership Rule -  Membership Activated ...";
+            paymentsList = CreatePaymentActions(generiPaymentBRE);
+
+            generiPaymentBRE = new GeneriPaymentBRE();
+            generiPaymentBRE.PaymentActionType = "UpgradeMembership";
+            generiPaymentBRE.BusinessRule = "Upgrade Membership Rule -  Membership Upgraded...";
+            paymentsList = CreatePaymentActions(generiPaymentBRE);
+
+            generiPaymentBRE = new GeneriPaymentBRE();
+            generiPaymentBRE.PaymentActionType = "MemupOrUpgr";
+            generiPaymentBRE.BusinessRule = "Membership/Upgrade Rule -  mailed to Owner and Membership Upgraded...";
+            paymentsList = CreatePaymentActions(generiPaymentBRE);
+
+            generiPaymentBRE = new GeneriPaymentBRE();
+            generiPaymentBRE.PaymentActionType = "Video";
+            generiPaymentBRE.BusinessRule = "Video Rule -  Added Fee to First Aid video...";
+            paymentsList = CreatePaymentActions(generiPaymentBRE);
+
+            generiPaymentBRE = new GeneriPaymentBRE();
+            generiPaymentBRE.PaymentActionType = "PyProdOrBook";
+            generiPaymentBRE.BusinessRule = "PyProdOrBook Rule -  Commission payment generated to Agent...";
+            paymentsList = CreatePaymentActions(generiPaymentBRE);
+
+        }
 
     ////Client class which calls the payments implemenation class through interface for all the payments action type
     /// <summary>
@@ -61,7 +103,7 @@ namespace PaymentsBREV1
         }
 
         //Retrieves Payment Business Rule actions by the Action Type
-        public void GetPaymentsByAction(string ActionType)
+        public bool GetPaymentsByAction(string ActionType)
         {
             bool foundAction = false;
             foreach (IPayments aPayments in PaymentsList)
@@ -70,12 +112,17 @@ namespace PaymentsBREV1
                 if (aPayments.paymentAction(ActionType))
                 {
                     foundAction = true;
-                    return;
+                    return true;
                 }
             }
 
             if (!foundAction)
+            {
                 Console.Write("No matching Payment Action found");
+                return false;
+            }
+            else
+                return true;
         }
     }
 
