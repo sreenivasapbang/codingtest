@@ -8,115 +8,129 @@ using System.Threading.Tasks;
 /// </summary>
 namespace PaymentsBREV1
 {
-
-    //Interface declaring the rules of the payment action method
+    ////Interface declaring the rules of the payment action method
     public interface IPayments
     {
         bool paymentAction(string actionType);
-
-    }
-    
-    
-    
-    //Generic class to test all the payment action types
-      public class GenericPaymentBRE : IPayments
-      {
-        private void paymentBRE()
+        string PaymentActionType { get; set; }
+        string BusinessRule
         {
+            get; set;
+        }
+    }
+    public interface IPaymentsFactory
+    {
+        //ArrayList CreatePaymentActions(AbsPayments payments);
+        List<IPayments> CreatePaymentActions(IPayments payments);
+    }
 
+
+    ////Client class which calls the payments implemenation class through interface for all the payments action type
+    /// <summary>
+    /// This class is also used by the unit test class
+    /// </summary>
+    public class AllPayments : IPaymentsFactory
+    {
+        private List<IPayments> _allPaymentsArray;
+    
+        private List<IPayments> _payments;
+        public List<IPayments> PaymentsList
+        {
+            get
+            {
+                if (_payments == null)
+                {
+                    _payments = new List<IPayments>();
+                }
+                return _payments;
+            }
+            set
+            {
+                _payments = value;
+            }
         }
 
-        public bool paymentAction(string actionType)
+        //Adds all Payment actions to the list
+        public List<IPayments> CreatePaymentActions(IPayments payments)
         {
-            try
-            {
-                switch (actionType)
-                {
-                    case "PyProduct":
-                        {
-                            Console.Write("PackingSlip Generated");
-                            return true;
-                        }
-                    case "Book":
-                        {
-                            Console.Write("Duplicate PackingSlip for Royalty Dept Generated");
-                            return true;
-                        }
-                    case "Membership":
-                        {
-                            Console.Write("Membership Activated");
-                            return true;
-                        }
-                    case "UpgradeMembership":
-                        {
-                            Console.Write("Membership Upgraded");
-                            return true;
-                        }
-                    case "MemupOrUpgr":
-                        {
-                            Console.Write("Membership Activate and then Upgrade");
-                            return true;
-                        }
+            
+            //List<IPayments> AllPaymentsArray = new List<IPayments>();
+            PaymentsList.Add(payments);
+            _allPaymentsArray = PaymentsList;
+            return _allPaymentsArray;
+        }
 
-                    case "Video":
-                        {
-                            Console.Write("FirstAid video added to the PackingSlip");
-                            return true;
-                        }
-                    case "PyProdOrBook":
-                        {
-                            Console.Write("Commission Generated for agent");
-                            return true;
-                        }
-                    default:
-                        Console.Write("May be Future action type");
-                        return false;
+        //Retrieves Payment Business Rule actions by the Action Type
+        public void GetPaymentsByAction(string ActionType)
+        {
+            bool foundAction = false;
+            foreach (IPayments aPayments in PaymentsList)
+            {
+                //aPayments.paymentActions();
+                if (aPayments.paymentAction(ActionType))
+                {
+                    foundAction = true;
+                    return;
                 }
             }
-            catch (Exception ex)
-            {
-                Console.Write(ex.Message);
-                return false;
-            }
+
+            if (!foundAction)
+                Console.Write("No matching Payment Action found");
         }
     }
-    
-    //New Business Rule 
-    public class NewPaymentBRE : IPayments
+
+
+    //Generic Class to hold Business Rules for each product and perform respective action
+    public class GeneriPaymentBRE : IPayments
     {
         //Default Constructor
-        public NewPaymentBRE()
-        {
-        }
-        public bool paymentAction(string actionType)
-        {
-            if (actionType == "Others")
-            {
-                Console.Write("New Business Rule is executed");
-                return true;
-            }
-            Console.Write("New Business Rule Payment Action is wrong");
-            return false;
-        }
-    }
-    //Yet Another New Business Rule 
-    public class NewV2PaymentBRE : IPayments
-    {
-        //Default Constructor
-        public NewV2PaymentBRE()
+        public GeneriPaymentBRE()
         {
 
         }
+
+        
+            //This property holds the Action Type
+        private string _paymentActionType;
+        public string PaymentActionType
+            {
+            get
+            {
+
+                return _paymentActionType;
+            }
+            set
+            {
+                    _paymentActionType = value;
+            }
+        }
+
+        //This property holds the Business rule information
+        private string _businessRule;
+        public string BusinessRule
+        {
+            get
+            {
+
+                return _businessRule;
+            }
+            set
+            {
+                _businessRule = value;
+            }
+        }
+
+
         //Implementing paymentAction method as declared in the Interface
         public bool paymentAction(string actionType)
         {
 
-            if (actionType == "OthersV2")
+            if (actionType == PaymentActionType)
             {
-                Console.Write("V2 New rule IS MODIFIED");
+                Console.Write(BusinessRule);
                 return true;
             }
-            Console.Write("New Business Rule V2 Payment Action is wrong");
+            //Console.Write("New Business Rule V2 Payment Action is wrong");
             return false;
         }
     }
