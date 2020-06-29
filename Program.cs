@@ -20,8 +20,9 @@ namespace PaymentsBREV1
             Console.WriteLine("E. MemupOrUpgr");
             Console.WriteLine("F. Video");
             Console.WriteLine("G. PyProdOrBook");
-            Console.WriteLine("X. V2 Others");
-            Console.WriteLine("Z. Others");
+            Console.WriteLine("Y. PRESS Y TO QUIT...");
+            //Console.WriteLine("X. V2 Others");
+            //Console.WriteLine("Z. Others");
 
             AllPayments payments = new AllPayments();
             payments.InitializePayments();
@@ -64,57 +65,63 @@ namespace PaymentsBREV1
             //paymentsList = payments.CreatePaymentActions(generiPaymentBRE);
 
             //Retrieve the Business Rule for Action Type
-            var varActionType = Console.ReadKey().KeyChar;
-            var strActionType="";
-            switch (varActionType)
+            var varActionType = 'A'; // Console.ReadKey().KeyChar;
+            var strActionType = "";
+
+            while (true)
             {
-                case 'A':
-                    {
-                        strActionType = "PyProduct";
-                        break;
-                    }
-                case 'B':
-                    {
-                        strActionType = "Book";
-                        break;
-                    }
-                case 'C':
-                    {
-                        strActionType = "Membership";
-                        break;
-                    }
-                case 'D':
-                    {
-                        strActionType = "UpgradeMembership";
-                        break;
-                    }
-                case 'E':
-                    {
-                        strActionType = "MemupOrUpgr";
-                        break;
-                    }
-                   
+                varActionType = Console.ReadKey().KeyChar;
+                if (varActionType == 'Y')
+                    break;
 
-                case 'F':
-                    {
-                        strActionType = "Video";
-                        break;
-                    }
+                switch (varActionType)
+                {
+                    case 'A':
+                        {
+                                payments.GetPaymentsByAction("PyProduct");
+                            break;
+                        }
+                    case 'B':
+                        {
+                                payments.GetPaymentsByAction("Book");
+                            break;
+                        }
+                    case 'C':
+                        {
+                                payments.GetPaymentsByAction("Membership");
+                            break;
+                        }
+                    case 'D':
+                        {
+                                payments.GetPaymentsByAction("UpgradeMembership");
+                            break;
+                        }
+                    case 'E':
+                        {
+                                payments.GetPaymentsByAction("MemupOrUpgr");
+                            break;
+                        }
 
-                case 'G':
-                    {
-                        strActionType = "PyProdOrBook";
-                        break;
-                    }
-                default:
-                    {
-                        strActionType = "";
-                        break;
-                    }
+
+                    case 'F':
+                        {
+                                payments.GetPaymentsByAction("Video");
+                            break;
+                        }
+
+                    case 'G':
+                        {
+                                payments.GetPaymentsByAction("PyProdOrBook");
+                                break;
+                        }
+                    default:
+                        {
+                                payments.GetPaymentsByAction(strActionType);
+                                break;
+                        }
+                }
+                                         
             }
-
-            payments.GetPaymentsByAction(strActionType);
-            Console.ReadKey();
         }
     }
 
