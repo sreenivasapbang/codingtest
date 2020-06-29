@@ -1,5 +1,6 @@
 /*This program is to run business rules based on Payment type*/
 using System;
+using System.Collections;
 namespace PaymentsBREV1
 {
 
@@ -8,7 +9,7 @@ namespace PaymentsBREV1
     //AllPayments class for processing 
     class Program
     {
-    static void Main(string[] args)
+        static void Main(string[] args)
         {
             Console.WriteLine("Welcome to Payment BRE");
             Console.WriteLine("Choose Payment BRE Action Type; Type Initial");
@@ -23,43 +24,44 @@ namespace PaymentsBREV1
             Console.WriteLine("Z. Others");
 
             AllPayments payments = new AllPayments();
+            payments.InitializePayments();
             //ArrayList arrayList = payments.CreatePaymentActions(new PaymentsProduct());
 
-            GeneriPaymentBRE generiPaymentBRE = new GeneriPaymentBRE();
-            generiPaymentBRE.PaymentActionType = "PyProduct";
-            generiPaymentBRE.BusinessRule = "Product Packing slip is generated...";
+            //GeneriPaymentBRE generiPaymentBRE = new GeneriPaymentBRE();
+            //generiPaymentBRE.PaymentActionType = "PyProduct";
+            //generiPaymentBRE.BusinessRule = "Product Packing slip is generated...";
 
-            System.Collections.Generic.List<IPayments> paymentsList = payments.CreatePaymentActions(generiPaymentBRE);
+            //System.Collections.Generic.List<IPayments> paymentsList = payments.CreatePaymentActions(generiPaymentBRE);
 
-            generiPaymentBRE = new GeneriPaymentBRE();
-            generiPaymentBRE.PaymentActionType = "Book";
-            generiPaymentBRE.BusinessRule = "Book Rule -  Created duplicate packing slip for Royalty Department ...";
-            paymentsList = payments.CreatePaymentActions(generiPaymentBRE);
+            //generiPaymentBRE = new GeneriPaymentBRE();
+            //generiPaymentBRE.PaymentActionType = "Book";
+            //generiPaymentBRE.BusinessRule = "Book Rule -  Created duplicate packing slip for Royalty Department ...";
+            //paymentsList = payments.CreatePaymentActions(generiPaymentBRE);
 
-            generiPaymentBRE = new GeneriPaymentBRE();
-            generiPaymentBRE.PaymentActionType = "Membership";
-            generiPaymentBRE.BusinessRule = "Membership Rule -  Membership Activated ...";
-            paymentsList = payments.CreatePaymentActions(generiPaymentBRE);
+            //generiPaymentBRE = new GeneriPaymentBRE();
+            //generiPaymentBRE.PaymentActionType = "Membership";
+            //generiPaymentBRE.BusinessRule = "Membership Rule -  Membership Activated ...";
+            //paymentsList = payments.CreatePaymentActions(generiPaymentBRE);
 
-            generiPaymentBRE = new GeneriPaymentBRE();
-            generiPaymentBRE.PaymentActionType = "UpgradeMembership";
-            generiPaymentBRE.BusinessRule = "Upgrade Membership Rule -  Membership Upgraded...";
-            paymentsList = payments.CreatePaymentActions(generiPaymentBRE);
+            //generiPaymentBRE = new GeneriPaymentBRE();
+            //generiPaymentBRE.PaymentActionType = "UpgradeMembership";
+            //generiPaymentBRE.BusinessRule = "Upgrade Membership Rule -  Membership Upgraded...";
+            //paymentsList = payments.CreatePaymentActions(generiPaymentBRE);
 
-            generiPaymentBRE = new GeneriPaymentBRE();
-            generiPaymentBRE.PaymentActionType = "MemupOrUpgr";
-            generiPaymentBRE.BusinessRule = "Membership/Upgrade Rule -  mailed to Owner and Membership Upgraded...";
-            paymentsList = payments.CreatePaymentActions(generiPaymentBRE);
+            //generiPaymentBRE = new GeneriPaymentBRE();
+            //generiPaymentBRE.PaymentActionType = "MemupOrUpgr";
+            //generiPaymentBRE.BusinessRule = "Membership/Upgrade Rule -  mailed to Owner and Membership Upgraded...";
+            //paymentsList = payments.CreatePaymentActions(generiPaymentBRE);
 
-            generiPaymentBRE = new GeneriPaymentBRE();
-            generiPaymentBRE.PaymentActionType = "Video";
-            generiPaymentBRE.BusinessRule = "Video Rule -  Added Fee to First Aid video...";
-            paymentsList = payments.CreatePaymentActions(generiPaymentBRE);
+            //generiPaymentBRE = new GeneriPaymentBRE();
+            //generiPaymentBRE.PaymentActionType = "Video";
+            //generiPaymentBRE.BusinessRule = "Video Rule -  Added Fee to First Aid video...";
+            //paymentsList = payments.CreatePaymentActions(generiPaymentBRE);
 
-            generiPaymentBRE = new GeneriPaymentBRE();
-            generiPaymentBRE.PaymentActionType = "PyProdOrBook";
-            generiPaymentBRE.BusinessRule = "PyProdOrBook Rule -  Commission payment generated to Agent...";
-            paymentsList = payments.CreatePaymentActions(generiPaymentBRE);
+            //generiPaymentBRE = new GeneriPaymentBRE();
+            //generiPaymentBRE.PaymentActionType = "PyProdOrBook";
+            //generiPaymentBRE.BusinessRule = "PyProdOrBook Rule -  Commission payment generated to Agent...";
+            //paymentsList = payments.CreatePaymentActions(generiPaymentBRE);
 
             //Retrieve the Business Rule for Action Type
             var varActionType = Console.ReadKey().KeyChar;
@@ -114,7 +116,6 @@ namespace PaymentsBREV1
             payments.GetPaymentsByAction(strActionType);
             Console.ReadKey();
         }
-    }        
     }
 
 }
